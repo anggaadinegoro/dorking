@@ -11,16 +11,11 @@ export default async function handler(req, res) {
     const geoRes = await fetch(`https://ipwhois.app/json/${ip}`);
     const geo = await geoRes.json();
 
-    const data = {
-      ip,
-      userAgent: ua,
-      location: `${geo.city}, ${geo.region}, ${geo.country}`,
-      isp: geo.org,
-      time: new Date().toISOString()
-    };
-
     console.log("=== Visitor Tracked ===");
-    console.log(data);
+    console.log("IP:", ip);
+    console.log("User Agent:", ua);
+    console.log("Location:", `${geo.city}, ${geo.region}, ${geo.country}`);
+    console.log("ISP:", geo.org);
 
     res.status(200).json({ success: true });
   } catch (err) {
